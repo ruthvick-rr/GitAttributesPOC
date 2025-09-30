@@ -27,7 +27,7 @@ jobs:
       - name: Build
         run: ./mvnw clean verify
 
-      - name: Prepare example repos
+      - name: Prepare example 
         run: ./example/prepare-repos.sh
 
       - name: Merge example repos
