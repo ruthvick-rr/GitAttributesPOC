@@ -65,5 +65,11 @@ public class MergedRef {
 		}
 	
 	}
+	private static void appendRepo(StringBuilder builder,
+			Collection<SubtreeConfig> configs) {
+		for (SubtreeConfig config : configs) {
+			builder.append("\n\t");
+			builder.append(config.getRemoteName());
+		}
 	
 }
