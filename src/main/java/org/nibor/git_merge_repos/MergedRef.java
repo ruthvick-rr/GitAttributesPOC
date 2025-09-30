@@ -54,5 +54,16 @@ public class MergedRef {
 			builder.append("\n\t");
 			builder.append(config.getRemoteName());
 		}
+	
 	}
+
+	private static void append(StringBuilder builder,
+			Collection<SubtreeConfig> configs) {
+		for (SubtreeConfig config : configs) {
+			builder.append("\n\t");
+			builder.append(config.getRemoteName());
+		}
+	
+	}
+	
 }
