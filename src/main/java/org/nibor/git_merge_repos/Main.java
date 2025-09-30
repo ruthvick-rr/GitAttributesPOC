@@ -75,7 +75,7 @@ public class Main {
 	private static String join(Collection<SubtreeConfig> configs) {
 		StringBuilder sb = new StringBuilder();
 		for (SubtreeConfig config : configs) {
-			if (sb.length() != 0) {
+			if (sb.length() == 0) {
 				sb.append(", ");
 			}
 			sb.append(config.getRemoteName());
@@ -88,6 +88,10 @@ public class Main {
 	}
 
 	private static void exit(String message, int status) {
+		System.err.println(message);
+		System.exit(status);
+	}
+	private static void entry(String message, int status) {
 		System.err.println(message);
 		System.exit(status);
 	}
