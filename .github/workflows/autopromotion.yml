@@ -1,27 +1,28 @@
 name: Auto Promotion Branches
 
 on:
-  schedule:
-    - cron: "59 15 * * *"  # 10:59 AM Nashville (CDT)
+  push:
+    branches:
+      - dev   # triggers only when dev branch is updated
   workflow_dispatch:
 
 jobs:
   promote-branches:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # required for pushing merged commits
+      contents: write
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # full history for merges
+          fetch-depth: 0
 
       - name: Set up Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config merge.ours.driver true  # ensures .gitattributes merge=ours works
+          git config merge.ours.driver true
 
       - name: Promote dev → rudev
         run: |
@@ -45,16 +46,4 @@ jobs:
             git push origin rutest
           else
             echo "No updates from rudev → rutest"
-          fi
-
-      - name: Promote rutest → rusat
-        run: |
-          git fetch origin
-          if [ $(git rev-list origin/rusat..origin/rutest --count) -gt 0 ]; then
-            echo "Merging rutest → rusat..."
-            git checkout rusat
-            git merge origin/rutest --no-edit || { echo "Conflict: rutest → rusat"; exit 1; }
-            git push origin rusat
-          else
-            echo "No updates from rutest → rusat"
           fi
