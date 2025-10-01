@@ -2,7 +2,7 @@ name: Auto Promotion Branches
 
 on:
   schedule:
-    - cron: "5 17 * * *"  # 12:05 PM Nashville (CDT)
+    - cron: "42 17 * * *"  # 12:42 PM Nashville (CDT)
   workflow_dispatch:
 
 jobs:
