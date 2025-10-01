@@ -83,9 +83,7 @@ public class Main {
 		return sb.toString();
 	}
 
-	private static void exitInvalidUsage(String message) {
-		exit(message, 64);
-	}
+
 
 	private static void exit(String message, int status) {
 		System.err.println(message);
