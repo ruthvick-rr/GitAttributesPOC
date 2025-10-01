@@ -1,0 +1,59 @@
+name: Auto Promotion Branches
+
+on:
+  schedule:
+    - cron: "40 15 * * *" # 10:40 AM Nashville time (CDT)
+  workflow_dispatch:
+
+jobs:
+  promote-branches:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history for merges
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Promote dev → rudev
+        run: |
+          git fetch origin
+          if [ $(git rev-list origin/rudev..origin/dev --count) -gt 0 ]; then
+            echo "Merging dev → rudev..."
+            git checkout rudev
+            git merge origin/dev --no-edit || { echo "Conflict: dev → rudev"; exit 1; }
+            git push origin rudev
+          else
+            echo "No updates from dev → rudev"
+          fi
+
+      - name: Promote rudev → rutest
+        run: |
+          git fetch origin
+          if [ $(git rev-list origin/rutest..origin/rudev --count) -gt 0 ]; then
+            echo "Merging rudev → rutest..."
+            git checkout rutest
+            git merge origin/rudev --no-edit || { echo "Conflict: rudev → rutest"; exit 1; }
+            git push origin rutest
+          else
+            echo "No updates from rudev → rutest"
+          fi
+
+      - name: Promote rutest → rusat
+        run: |
+          git fetch origin
+          if [ $(git rev-list origin/rusat..origin/rutest --count) -gt 0 ]; then
+            echo "Merging rutest → rusat..."
+            git checkout rusat
+            git merge origin/rutest --no-edit || { echo "Conflict: rutest → rusat"; exit 1; }
+            git push origin rusat
+          else
+            echo "No updates from rutest → rusat"
+          fi
