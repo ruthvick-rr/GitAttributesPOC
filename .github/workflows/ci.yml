@@ -1,48 +1,48 @@
-# # See https://docs.github.com/en/actions/language-and-framework-guides/building-and-testing-java-with-maven
+# See https://docs.github.com/en/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-# name: ci
+name: ci
 
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
+on:
+  push:
+    branches:
+      - test
+  pull_request:
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     strategy:
-#       matrix:
-#         java: [11, 17]
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v3
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [11, 17]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-#       - name: Set up Java
-#         uses: actions/setup-java@v3
-#         with:
-#           distribution: 'temurin'
-#           java-version: ${{ matrix.java }}
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }}
 
-#       - name: Build
-#         run: ./mvnw clean verify
+      - name: Build
+        run: ./mvnw clean verify
 
-#       - name: Prepare example 
-#         run: ./example/prepare-repos.sh
+      - name: Prepare example 
+        run: ./example/prepare-repos.sh
 
-#       - name: Merge example repos
-#         run: ./example.sh
+      - name: Merge example repos
+        run: ./example.sh
 
-#       - name: Check merged repo
-#         run: |
-#           (cd merged-repo && git log --pretty=format:%s main) > example/log.main.actual
-#           (cd merged-repo && git log --pretty=format:%s v1) > example/log.v1.actual
-#           diff -u example/log.main.{expected,actual}
-#           diff -u example/log.v1.{expected,actual}
+      - name: Check merged repo
+        run: |
+          (cd merged-repo && git log --pretty=format:%s main) > example/log.main.actual
+          (cd merged-repo && git log --pretty=format:%s v1) > example/log.v1.actual
+          diff -u example/log.main.{expected,actual}
+          diff -u example/log.v1.{expected,actual}
       
-#       - name: Check merged test git attributes 
-#         run: |
-#           (cd merged-repo && git log --pretty=format:%s main) > example/log.main.actual
-#           (cd merged-repo && git log --pretty=format:%s v1) > example/log.v1.actual
-#           diff -u example/log.main.{expected,actual}
-#           diff -u example/log.v1.{expected,actual}
+      - name: Check merged test git attributes 
+        run: |
+          (cd merged-repo && git log --pretty=format:%s main) > example/log.main.actual
+          (cd merged-repo && git log --pretty=format:%s v1) > example/log.v1.actual
+          diff -u example/log.main.{expected,actual}
+          diff -u example/log.v1.{expected,actual}
