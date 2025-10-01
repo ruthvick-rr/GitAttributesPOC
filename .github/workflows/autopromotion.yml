@@ -3,7 +3,7 @@ name: Auto Promotion Branches
 on:
   push:
     branches:
-      -    # triggers only when dev branch is updated
+      - dev
   workflow_dispatch:
 
 jobs:

@@ -36,7 +36,7 @@ import org.eclipse.jgit.transport.RefSpec;
  * Fetches original repos, merges original branches/tags of different repos and
  * creates branches/tags that point to new merge commits.
  */
-public class RepoMerger {
+public class Ruthvick {
 
 	private final List<SubtreeConfig> subtreeConfigs;
 	private final Repository repository;
