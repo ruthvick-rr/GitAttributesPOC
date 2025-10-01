@@ -1,4 +1,4 @@
-public class Utils {
+public class ruthvick {
 
     // Function to add two numbers
     public static int add(int a, int b) {
