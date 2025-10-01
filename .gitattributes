@@ -1,4 +1,3 @@
 # Preserve environment-specific YAMLs in each branch
 dev.yml    merge=ours
-
-
+rudev.yml merge=ours
