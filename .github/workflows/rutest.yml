@@ -1,1 +1,3 @@
-rutest update 
+dev.yml merge=ours
+rudev.yml merge=ours
+# rutest branch owns rutest.yml
