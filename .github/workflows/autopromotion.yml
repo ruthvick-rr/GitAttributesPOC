@@ -2,25 +2,26 @@ name: Auto Promotion Branches
 
 on:
   schedule:
-    - cron: "55 15 * * *"  # 10:59 AM Nashville (CDT)
+    - cron: "59 15 * * *"  # 10:59 AM Nashville (CDT)
   workflow_dispatch:
 
 jobs:
   promote-branches:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write  # required for pushing merged commits
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # full history for merges
+          fetch-depth: 0  # full history for merges
 
       - name: Set up Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config merge.ours.driver true  # ensures .gitattributes merge=ours works
 
       - name: Promote dev → rudev
         run: |
