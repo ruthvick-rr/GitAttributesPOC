@@ -1,4 +1,4 @@
 # Preserve environment-specific YAMLs in each branch
 dev.yml    merge=ours
-.github/workflows/autopromotion.yml merge=ours
+autopromotion.yml merge=ours
 
