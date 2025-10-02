@@ -1,3 +1,5 @@
 # Preserve environment-specific YAMLs in each branch
-dev.yml    merge=ours
-rudev.yml merge=ours
+
+.github/workflows/rudev.yml merge=ours
+
+.github/workflows/dev.yml merge=ours
