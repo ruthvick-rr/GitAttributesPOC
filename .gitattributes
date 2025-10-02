@@ -1,0 +1,2 @@
+.github/workflows/dev.yml merge=ours
+.github/workflows/autopromotion.yml merge=ours
