@@ -1,5 +1,3 @@
-# Preserve environment-specific YAMLs in each branch
-
 .github/workflows/rudev.yml merge=ours
-
 .github/workflows/dev.yml merge=ours
+.github/workflows/autopromotion.yml merge=ours
