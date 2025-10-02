@@ -1,5 +1,5 @@
 package org.nibor.git_merge_repos;
 
-public interface tharunVeda {
+public interface tharuneega {
     
 }
